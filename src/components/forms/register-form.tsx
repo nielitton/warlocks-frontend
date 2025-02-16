@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { UseCreateUser } from "@/hooks/user/create-user"
+import { UseCreateUser } from "@/hooks/user/use-create-user"
 import { createUserSchema, CreateUserSchema } from "@/schemas/user/create-user.schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { UserPlus } from "lucide-react"
@@ -22,7 +22,6 @@ export default function RegisterForm() {
     const handleSubmit = (data: CreateUserSchema) => {
         createUserMutate(data)
     }
-
 
     return (
         <Form {...form}>
@@ -48,12 +47,12 @@ export default function RegisterForm() {
                     />
                 </div>
                 <div className="space-y-2">
-                    <FormLabel htmlFor="email">Email</FormLabel>
                     <FormField
                         control={form.control}
                         name="email"
                         render={({ field }) => (
                             <FormItem>
+                                <FormLabel htmlFor="email">Email</FormLabel>
                                 <FormControl>
                                     <Input
                                         {...field}
@@ -68,12 +67,12 @@ export default function RegisterForm() {
                     />
                 </div>
                 <div className="space-y-2">
-                    <FormLabel htmlFor="password">Senha</FormLabel>
                     <FormField
                         control={form.control}
                         name="password"
                         render={({ field }) => (
                             <FormItem>
+                                <FormLabel htmlFor="password">Senha</FormLabel>
                                 <FormControl>
                                     <Input
                                         {...field}
