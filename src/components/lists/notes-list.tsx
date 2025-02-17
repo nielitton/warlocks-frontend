@@ -3,27 +3,32 @@
 import { Button } from "@/components/ui/button"
 import { UseDeleteNote } from "@/hooks/notes/use-delete-note"
 import { UseGetNotes } from "@/hooks/notes/use-get-notes"
+import { useListPageStore } from "@/stores/list-pages-store"
 import { useModalStore } from "@/stores/modal.store"
 import { useNoteStore } from "@/stores/notes-store"
 import { AnimatePresence, motion } from "framer-motion"
-import { Pen, Trash2 } from "lucide-react"
+import { ChevronLeft, ChevronRight, Pen, Trash2 } from "lucide-react"
 import { useEffect } from "react"
 import { Skeleton } from "../ui/skeleton"
 
 export default function NotesList() {
     const { notes, setNotes } = useNoteStore()
     const { setModalIsOpen, setModalType, setNoteId } = useModalStore()
+    const { currentPage, nextPage, prevPage, setTotalPages, totalPages } = useListPageStore()
 
-    const { data: notesFinded, refetch, isLoading } = UseGetNotes()
+    const { data: notesFinded, refetch: refetchNotes, isLoading } = UseGetNotes(currentPage)
     const { mutate: deleteNoteMutate } = UseDeleteNote()
 
     useEffect(() => {
-        setNotes(notesFinded?.notes || [])
-    }, [notesFinded, setNotes])
+        if (notesFinded) {
+            setNotes(notesFinded.notes || []);
+            setTotalPages(Number(notesFinded.totalPages));
+        }
+    }, [notesFinded, setNotes, setTotalPages]);
 
     const deleteNote = (id: string) => {
         deleteNoteMutate(id)
-        refetch()
+        refetchNotes()
     }
 
     const handleEditModal = (id: string) => {
@@ -84,6 +89,29 @@ export default function NotesList() {
                 <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center text-gray-500 mt-4">
                     Não existem notas, clique em adicionar, para criar uma.
                 </motion.p>
+            )}
+            {notes.length > 0 && (
+                <div className="flex justify-between items-center mt-6">
+                    <Button
+                        onClick={prevPage}
+                        disabled={currentPage === 1}
+                        variant="outline"
+                        className="text-warlocks-blue border-warlocks-blue"
+                    >
+                        <ChevronLeft className="h-4 w-4 mr-2" /> Previous
+                    </Button>
+                    <span className="text-warlocks-blue font-medium">
+                        Page {currentPage} of {totalPages}
+                    </span>
+                    <Button
+                        onClick={nextPage}
+                        disabled={currentPage === totalPages}
+                        variant="outline"
+                        className="text-warlocks-blue border-warlocks-blue"
+                    >
+                        Next <ChevronRight className="h-4 w-4 ml-2" />
+                    </Button>
+                </div>
             )}
         </div>
     )
