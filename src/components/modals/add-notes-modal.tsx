@@ -35,7 +35,15 @@ export default function AddNoteModal({ isOpen, setIsOpen }: AddNoteModalProps) {
         resolver: zodResolver(createNoteSchema)
     })
 
-    const { data, isLoading } = UseGetOneNote(noteId)
+    const { data, isLoading, refetch } = UseGetOneNote(noteId)
+
+    useEffect(() => {
+        if (isOpen && modalType === "edit" && noteId) {
+            console.log("🔄 Refetching note...");
+            refetch();
+        }
+    }, [isOpen, modalType, noteId, refetch]);
+
     useEffect(() => {
         if (modalType === "edit" && data) {
             form.setValue("title", data.title)

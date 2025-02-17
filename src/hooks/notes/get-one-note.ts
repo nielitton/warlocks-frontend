@@ -7,6 +7,9 @@ export function UseGetOneNote(noteId: string) {
         queryFn: async () => {
             return await findOneNoteService(noteId)
         },
-        enabled: !!noteId
+        refetchOnMount: true,
+        enabled: !!noteId,
+        staleTime: 0,
+        refetchOnWindowFocus: true,
     })
 }
