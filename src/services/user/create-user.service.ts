@@ -8,7 +8,7 @@ export async function createUserService(data: ICreateUser) {
 
         return response.data;
     } catch (error: any) {
-        const errorMessage = error.response?.data?.message || "Erro ao criar ausuário!"
+        const errorMessage = error.response?.data?.message || "Erro ao criar usuário!"
 
         throw new Error(errorMessage)
     }

@@ -3,10 +3,15 @@
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { UserCreateNote } from "@/hooks/notes/use-create-note"
+import { ICreateNote } from "@/models/entities/note.entity"
+import { createNoteSchema, CreateNoteSchema } from "@/schemas/notes/create-note.schema"
+import { useAuthStore } from "@/stores/auth-store"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { AnimatePresence, motion } from "framer-motion"
-import { useState } from "react"
+import { useForm } from "react-hook-form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form"
 
 interface AddNoteModalProps {
     isOpen: boolean
@@ -14,16 +19,22 @@ interface AddNoteModalProps {
 }
 
 export default function AddNoteModal({ isOpen, setIsOpen }: AddNoteModalProps) {
-    const [title, setTitle] = useState("")
-    const [description, setDescription] = useState("")
+    const { mutate: mutateCreateNote } = UserCreateNote()
+    const { user } = useAuthStore()
+    const form = useForm<CreateNoteSchema>({
+        defaultValues: {
+            title: "",
+            content: ""
+        },
+        resolver: zodResolver(createNoteSchema)
+    })
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault()
-        // Here you would typically add the note to your state or database
-        console.log("Adding note:", { title, description })
-        setTitle("")
-        setDescription("")
-        setIsOpen(false)
+    const handleSubmit = (data: ICreateNote) => {
+        const userId = user.id
+
+        data.userId = userId
+
+        mutateCreateNote(data)
     }
 
     return (
@@ -38,33 +49,55 @@ export default function AddNoteModal({ isOpen, setIsOpen }: AddNoteModalProps) {
                             transition={{ duration: 0.2 }}
                         >
                             <DialogHeader>
-                                <DialogTitle className="text-warlocks-blue">Add New Note</DialogTitle>
+                                <DialogTitle className="text-warlocks-blue">Adicione uma nota!</DialogTitle>
                             </DialogHeader>
-                            <form onSubmit={handleSubmit} className="space-y-4 mt-4">
-                                <div className="space-y-2">
-                                    <Label htmlFor="title">Title</Label>
-                                    <Input
-                                        id="title"
-                                        value={title}
-                                        onChange={(e) => setTitle(e.target.value)}
-                                        placeholder="Note title"
-                                        required
-                                    />
-                                </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="description">Description</Label>
-                                    <Textarea
-                                        id="description"
-                                        value={description}
-                                        onChange={(e) => setDescription(e.target.value)}
-                                        placeholder="Note description"
-                                        required
-                                    />
-                                </div>
-                                <Button type="submit" className="w-full bg-warlocks-blue hover:bg-warlocks-blue/90">
-                                    Add Note
-                                </Button>
-                            </form>
+                            <Form {...form}>
+                                <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4 mt-4">
+                                    <div className="space-y-2">
+                                        <FormField
+                                            control={form.control}
+                                            name="title"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel htmlFor="title">Título</FormLabel>
+                                                    <FormControl>
+                                                        <Input
+                                                            {...field}
+                                                            value={field.value}
+                                                            onChange={field.onChange}
+                                                            placeholder="Titulo da nota"
+                                                        />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <FormField
+                                            control={form.control}
+                                            name="content"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel htmlFor="description">Conteúdo</FormLabel>
+                                                    <FormControl>
+                                                        <Textarea
+                                                            id="description"
+                                                            value={field.value}
+                                                            onChange={field.onChange}
+                                                            placeholder="Conteúdo da nota"
+                                                        />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    </div>
+                                    <Button type="submit" className="w-full bg-warlocks-blue hover:bg-warlocks-blue/90">
+                                        Adicionar nota
+                                    </Button>
+                                </form>
+                            </Form>
                         </motion.div>
                     </DialogContent>
                 </Dialog>

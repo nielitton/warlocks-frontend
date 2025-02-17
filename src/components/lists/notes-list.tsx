@@ -1,27 +1,30 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
+import { UseDeleteNote } from "@/hooks/notes/use-delete-note"
+import { UseGetNotes } from "@/hooks/notes/use-get-notes"
+import { Note } from "@/models/entities/note.entity"
 import { AnimatePresence, motion } from "framer-motion"
 import { Trash2 } from "lucide-react"
-import { useState } from "react"
-
-interface Note {
-    id: number
-    title: string
-    description: string
-}
+import { useEffect, useState } from "react"
 
 export default function NotesList() {
-    const [notes, setNotes] = useState<Note[]>([])
+    const [notes, setNotes] = useState<Note[] | undefined>([])
+    const { mutate: deleteNoteMutate } = UseDeleteNote()
+    const notesFinded = UseGetNotes()
 
-    const deleteNote = (id: number) => {
-        setNotes(notes.filter((note) => note.id !== id))
+    useEffect(() => {
+        setNotes(notesFinded.data?.notes)
+    }, [notesFinded.data])
+
+    const deleteNote = (id: string) => {
+        deleteNoteMutate(id)
     }
 
     return (
         <div className="p-6">
             <AnimatePresence>
-                {notes.map((note) => (
+                {notes?.map((note) => (
                     <motion.div
                         key={note.id}
                         initial={{ opacity: 0, y: 20 }}
@@ -41,11 +44,11 @@ export default function NotesList() {
                                 <Trash2 className="h-4 w-4" />
                             </Button>
                         </div>
-                        <p className="text-sm text-gray-600">{note.description}</p>
+                        <p className="text-sm text-gray-600">{note.content}</p>
                     </motion.div>
                 ))}
             </AnimatePresence>
-            {notes.length === 0 && (
+            {notesFinded.data?.totalRecords === 0 && (
                 <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center text-gray-500 mt-4">
                     Não existem notas, clique em adicionar, para criar uma.
                 </motion.p>

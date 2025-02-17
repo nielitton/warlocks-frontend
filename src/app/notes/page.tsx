@@ -26,14 +26,14 @@ export default function NotesPage() {
                 className="max-w-4xl mx-auto bg-white rounded-lg shadow-xl overflow-hidden"
             >
                 <div className="p-6 flex justify-between items-center border-b border-warlocks-blue/20">
-                    <h1 className="text-2xl font-bold text-warlocks-blue">My Notes</h1>
+                    <h1 className="text-2xl font-bold text-warlocks-blue">Minhas notas</h1>
                     <div className="flex space-x-2">
                         <Button onClick={() => setIsModalOpen(true)} className="bg-warlocks-blue hover:bg-warlocks-blue/90">
-                            <PlusCircle className="mr-2 h-4 w-4" /> Add Note
+                            <PlusCircle className="mr-2 h-4 w-4" /> Adicionar nota
                         </Button>
                         <Link href="/auth">
                             <Button onClick={() => handleLogout()} variant="outline" className="border-warlocks-blue text-warlocks-blue hover:bg-warlocks-blue/10">
-                                <LogOut className="mr-2 h-4 w-4" /> Logout
+                                <LogOut className="mr-2 h-4 w-4" /> Sair
                             </Button>
                         </Link>
                     </div>

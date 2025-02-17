@@ -15,6 +15,8 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
             router.push("/notes")
         } else if (!token && pathname !== "/auth" && pathname !== "/") {
             router.push("/auth")
+        } else if (!token) {
+            router.push("/auth")
         }
     }, [pathname, router])
 

@@ -37,7 +37,7 @@ export default function LoginForm() {
                                         {...field}
                                         value={field.value}
                                         onChange={field.onChange}
-                                        placeholder="Enter your email"
+                                        placeholder="Digite seu email"
                                     />
                                 </FormControl>
                                 <FormMessage />
@@ -51,12 +51,12 @@ export default function LoginForm() {
                         name="password"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel htmlFor="password">Password</FormLabel>
+                                <FormLabel htmlFor="password">Senha</FormLabel>
                                 <FormControl>
                                     <Input
                                         value={field.value}
                                         onChange={field.onChange}
-                                        placeholder="Enter your password"
+                                        placeholder="Digite sua senha"
                                         type="password"
                                     />
                                 </FormControl>
