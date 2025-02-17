@@ -3,22 +3,23 @@
 import { Button } from "@/components/ui/button"
 import { UseDeleteNote } from "@/hooks/notes/use-delete-note"
 import { UseGetNotes } from "@/hooks/notes/use-get-notes"
-import { Note } from "@/models/entities/note.entity"
+import { useNoteStore } from "@/stores/notes-store"
 import { AnimatePresence, motion } from "framer-motion"
 import { Trash2 } from "lucide-react"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 
 export default function NotesList() {
-    const [notes, setNotes] = useState<Note[] | undefined>([])
+    const { notes, setNotes } = useNoteStore()
     const { mutate: deleteNoteMutate } = UseDeleteNote()
-    const notesFinded = UseGetNotes()
+    const { data: notesFinded, refetch } = UseGetNotes()
 
     useEffect(() => {
-        setNotes(notesFinded.data?.notes)
-    }, [notesFinded.data])
+        setNotes(notesFinded?.notes || [])
+    }, [notesFinded, setNotes])
 
     const deleteNote = (id: string) => {
         deleteNoteMutate(id)
+        refetch()
     }
 
     return (
@@ -48,7 +49,7 @@ export default function NotesList() {
                     </motion.div>
                 ))}
             </AnimatePresence>
-            {notesFinded.data?.totalRecords === 0 && (
+            {notesFinded?.totalRecords === 0 && (
                 <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center text-gray-500 mt-4">
                     Não existem notas, clique em adicionar, para criar uma.
                 </motion.p>

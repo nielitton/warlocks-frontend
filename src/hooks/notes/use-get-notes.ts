@@ -12,6 +12,5 @@ export function UseGetNotes() {
 
             return response
         },
-        staleTime: 0
     })
 }
