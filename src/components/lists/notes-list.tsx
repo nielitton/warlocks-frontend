@@ -27,7 +27,16 @@ export default function NotesList() {
     }, [notesFinded, setNotes, setTotalPages]);
 
     const deleteNote = (id: string) => {
-        deleteNoteMutate(id)
+        deleteNoteMutate(id, {
+            onSuccess: () => {
+
+                if (notes.length === 1 && currentPage > 1) {
+                    prevPage();
+                }
+
+                refetchNotes();
+            },
+        })
         refetchNotes()
     }
 
