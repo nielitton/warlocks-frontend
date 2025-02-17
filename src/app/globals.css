@@ -4,6 +4,8 @@
 
 @layer base {
   :root {
+
+
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
@@ -64,6 +66,28 @@
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
   }
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2028F1;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #1820C1;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #2028F1 #f1f1f1;
 }
 
 @layer base {
