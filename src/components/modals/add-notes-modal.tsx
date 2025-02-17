@@ -23,7 +23,7 @@ interface AddNoteModalProps {
 }
 
 export default function AddNoteModal({ isOpen, setIsOpen }: AddNoteModalProps) {
-    const { modalType } = useModalStore()
+    const { modalType, setModalIsOpen } = useModalStore()
     const { noteId } = useModalStore() || ''
     const { mutate: mutateCreateNote } = UserCreateNote()
     const { mutate: mutateModifyNote } = UseUpdateNote(noteId)
@@ -40,7 +40,7 @@ export default function AddNoteModal({ isOpen, setIsOpen }: AddNoteModalProps) {
         if (modalType === "edit" && data) {
             form.setValue("title", data.title)
             form.setValue("content", data.content)
-        } else if (modalType === "create") {
+        } else {
             form.setValue("title", "")
             form.setValue("content", "")
         }
@@ -52,9 +52,12 @@ export default function AddNoteModal({ isOpen, setIsOpen }: AddNoteModalProps) {
             const userId = getCookie('userId')?.toString()
             data.userId = userId
             mutateCreateNote(data)
+            setModalIsOpen(false)
+            form.reset()
         } else if (modalType === "edit") {
-            console.log(data)
             mutateModifyNote(data)
+            setModalIsOpen(false)
+            form.reset()
         }
     }
 

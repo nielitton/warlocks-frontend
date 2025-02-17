@@ -12,9 +12,10 @@ import { Skeleton } from "../ui/skeleton"
 
 export default function NotesList() {
     const { notes, setNotes } = useNoteStore()
-    const { mutate: deleteNoteMutate } = UseDeleteNote()
-    const { data: notesFinded, refetch, isLoading } = UseGetNotes()
     const { setModalIsOpen, setModalType, setNoteId } = useModalStore()
+
+    const { data: notesFinded, refetch, isLoading } = UseGetNotes()
+    const { mutate: deleteNoteMutate } = UseDeleteNote()
 
     useEffect(() => {
         setNotes(notesFinded?.notes || [])
