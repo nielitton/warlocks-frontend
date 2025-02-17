@@ -5,11 +5,13 @@ interface AuthStore {
     expiresIn: string;
     setToken: (token: string) => void
     setExpiresIn: (expiresIn: string) => void
+    removeToken: () => void
 }
 
-export const useAuthStore = create<AuthStore>(() => ({
+export const useAuthStore = create<AuthStore>((set) => ({
     token: '',
     expiresIn: '',
-    setToken: () => (token: string) => ({ state: token }),
-    setExpiresIn: () => (expiresIn: string) => ({ state: expiresIn })
+    setToken: (token) => set({ token }),
+    setExpiresIn: (expiresIn) => set({ expiresIn }),
+    removeToken: () => set({ token: '', expiresIn: '' }),
 }))
