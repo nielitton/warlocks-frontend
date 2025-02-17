@@ -4,6 +4,11 @@ export interface ICreateNote {
     userId?: string;
 }
 
+export interface IUpdateNote {
+    title?: string;
+    content?: string;
+}
+
 export interface Note {
     id: string;
     title: string;
@@ -26,4 +31,9 @@ export interface INotesByUserResponse {
 export interface INoteDeleteResponse {
     message: string;
     notes: Note[];
+}
+
+export interface INoteUpdateResponse {
+    message: string;
+    note: Note;
 }

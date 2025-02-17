@@ -29,6 +29,11 @@ export function UseLogin() {
                 path: "/",
                 sameSite: "lax"
             })
+            setCookie("user", response.user, {
+                maxAge: Number(response.expires_in) || 3600,
+                path: "/",
+                sameSite: "lax"
+            })
 
             setAuthToken(response.token)
             return response
