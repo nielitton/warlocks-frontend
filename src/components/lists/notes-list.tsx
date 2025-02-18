@@ -107,10 +107,10 @@ export default function NotesList() {
                         variant="outline"
                         className="text-warlocks-blue border-warlocks-blue"
                     >
-                        <ChevronLeft className="h-4 w-4 mr-2" /> Previous
+                        <ChevronLeft className="h-4 w-4 mr-2" /> Anterior
                     </Button>
                     <span className="text-warlocks-blue font-medium">
-                        Page {currentPage} of {totalPages}
+                        Pagina {currentPage} de {totalPages}
                     </span>
                     <Button
                         onClick={nextPage}
@@ -118,7 +118,7 @@ export default function NotesList() {
                         variant="outline"
                         className="text-warlocks-blue border-warlocks-blue"
                     >
-                        Next <ChevronRight className="h-4 w-4 ml-2" />
+                        Proxima <ChevronRight className="h-4 w-4 ml-2" />
                     </Button>
                 </div>
             )}
