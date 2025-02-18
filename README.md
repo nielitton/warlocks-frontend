@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# Warlocks Front-End
 
-First, run the development server:
+Esse é o frontend para o projeto Warlocks Notes, aqui você vai aprender a iniciar o projeto localmente
+
+Caso você não queira inicia-lo localmente, você pode testar online, no link abaixo
+
+https://warlocks-frontend.vercel.app
+
+O Aplicativo está hospedado na vercel e foi feito em NextJs com TypeScrypt
+
+
+## Instalação
+
+Para instalar o  projeto, você precisará instalar algumas dependências, sendo elas
+
+- Npm (Normalmente vem junto com o node)
+- Git (https://git-scm.com/downloads)
+
+Após isso, você deve clonar o repositório na sua maquina com o git
+
+digite o comando no seu terminal
+```bash
+git clone git@github.com:nielitton/warlocks-frontend.git
+```
+
+Após o repo clonado, você deve instalar as dependências do projeto, mas antes você deve entrar na pasta do projeto, com o comando.
+```bash
+cd warlocks-frontend
+```
+Agora vamos instalar as dependências do  projeto.
+```bash
+npm install 
+```
+
+Agora você deve criar um arquivo na raiz do projeto, com o nome ".env.local"
+
+Dentro do arquivo, você deve colar o seguinte:
+```bash
+NEXT_PUBLIC_API_URL=http://localhost:3333
+```
+
+com tudo isso feito, e completo, você pode iniciar o projeto, com o comando
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Estara rodando o seu frontend, após isso você pode acessar o aplicativo pela url
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+http://localhost:3000
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+## Stack utilizada
 
-To learn more about Next.js, take a look at the following resources:
+**Front-end:** NextJs, Tailwind, TypeScript, React-hook-form, ReactQuery, React-Toastify, ShadCn/ui, Zustand, Zod, Axios
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
