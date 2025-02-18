@@ -131,7 +131,7 @@ export default function AddNoteModal({ isOpen, setIsOpen }: AddNoteModalProps) {
                                             )}
                                         />
                                     </div>
-                                    <Button type="submit" className="w-full bg-warlocks-blue hover:bg-warlocks-blue/90">
+                                    <Button type="submit" className="w-full bg-warlocks-blue hover:bg-warlocks-blue/90 text-white">
                                         {modalType === "edit" ? "Editar" : "Adicionar"}
                                     </Button>
                                 </form>
