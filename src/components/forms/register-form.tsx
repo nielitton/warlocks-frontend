@@ -3,12 +3,12 @@ import { Input } from "@/components/ui/input"
 import { UseCreateUser } from "@/hooks/user/use-create-user"
 import { createUserSchema, CreateUserSchema } from "@/schemas/user/create-user.schema"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { UserPlus } from "lucide-react"
+import { Loader2, UserPlus } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form"
 
 export default function RegisterForm() {
-    const { mutate: createUserMutate } = UseCreateUser()
+    const { mutate: createUserMutate, isPending } = UseCreateUser()
 
     const form = useForm<CreateUserSchema>({
         defaultValues: {
@@ -88,7 +88,17 @@ export default function RegisterForm() {
                     />
                 </div>
                 <Button type="submit" className="w-full bg-warlocks-blue hover:bg-warlocks-blue/90 text-white">
-                    <UserPlus className="mr-2 h-4 w-4" /> Registrar
+                    {isPending ? (
+                        <>
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            Entrando...
+                        </>
+                    ) : (
+                        <>
+                            <UserPlus className="mr-2 h-4 w-4" /> Registrar
+                        </>
+                    )}
+
                 </Button>
             </form>
         </Form>
