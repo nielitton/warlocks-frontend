@@ -9,6 +9,12 @@ https://warlocks-frontend.vercel.app
 
 O Aplicativo está hospedado na vercel e foi feito em NextJs com TypeScrypt
 
+## Ponto importante
+
+Para que o aplciativo funcione, você precisa rodar primeiro o backend, e deixa-lo rodando em sua máquina, para depois executar os comandos abaixo.
+
+Url do repo backend: https://github.com/nielitton/warlocks-backend 
+
 
 ## Instalação
 
@@ -54,4 +60,3 @@ http://localhost:3000
 ## Stack utilizada
 
 **Front-end:** NextJs, Tailwind, TypeScript, React-hook-form, ReactQuery, React-Toastify, ShadCn/ui, Zustand, Zod, Axios
-
