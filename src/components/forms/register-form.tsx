@@ -87,7 +87,7 @@ export default function RegisterForm() {
                         )}
                     />
                 </div>
-                <Button type="submit" className="w-full bg-warlocks-blue hover:bg-warlocks-blue/90">
+                <Button type="submit" className="w-full bg-warlocks-blue hover:bg-warlocks-blue/90 text-white">
                     <UserPlus className="mr-2 h-4 w-4" /> Registrar
                 </Button>
             </form>

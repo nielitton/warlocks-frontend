@@ -35,7 +35,7 @@ export default function NotesPage() {
                     <div className="p-6 flex justify-between items-center border-b border-warlocks-blue/20">
                         <h1 className="text-2xl font-bold text-warlocks-blue">Minhas notas</h1>
                         <div className="flex space-x-2">
-                            <Button onClick={() => handleModal()} className="bg-warlocks-blue hover:bg-warlocks-blue/90">
+                            <Button onClick={() => handleModal()} className="bg-warlocks-blue hover:bg-warlocks-blue/90 text-white">
                                 <PlusCircle className="mr-2 h-4 w-4" /> Adicionar nota
                             </Button>
                             <Link href="/auth">

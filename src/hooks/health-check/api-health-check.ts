@@ -16,7 +16,7 @@ const useCheckApiHealth = () => {
 
                 throw new Error(errorMessage)
             }
-        }, 10 * 60 * 1000);
+        }, 5 * 60 * 1000);
 
         return () => clearInterval(intervalId);
     }, []);

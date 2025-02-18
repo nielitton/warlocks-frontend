@@ -3,12 +3,12 @@ import { Input } from "@/components/ui/input"
 import { UseLogin } from "@/hooks/auth/use-login"
 import { loginSchema, LoginSchema } from "@/schemas/user/login.schema"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { LogIn } from "lucide-react"
+import { Loader2, LogIn } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form"
 
 export default function LoginForm() {
-    const { mutate: loginMutate } = UseLogin()
+    const { mutate: loginMutate, isPending } = UseLogin()
 
     const form = useForm<LoginSchema>({
         defaultValues: {
@@ -65,8 +65,17 @@ export default function LoginForm() {
                         )}
                     />
                 </div>
-                <Button type="submit" className="w-full bg-warlocks-blue hover:bg-warlocks-blue/90">
-                    <LogIn className="mr-2 h-4 w-4" /> Entrar
+                <Button type="submit" className="w-full bg-warlocks-blue hover:bg-warlocks-blue/90 text-white">
+                    {isPending ? (
+                        <>
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            Logging in...
+                        </>
+                    ) : (
+                        <>
+                            <LogIn className="mr-2 h-4 w-4" /> Login
+                        </>
+                    )}
                 </Button>
             </form>
         </Form>
